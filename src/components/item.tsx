@@ -13,7 +13,7 @@ export default function Item() {
 
   return (
     <div className=" my-4 rounded-lg flex min-h-[5rem] bg-white items-center">
-      <div className="border-l-4 border-[#7d8ecd] h-auto w-[5%] rounded-l"></div>
+      <div className="border-l-[6px] border-[#7d8ecd] min-h-[5rem] w-[5%] rounded-l"></div>
 
       <div className="flex items-center space-x-2 w-[90%]">
         <Checkbox id="terms" onClick={handleCheck} checked={checked} />
@@ -21,14 +21,14 @@ export default function Item() {
           htmlFor="terms"
           className={`${
             checked ? 'line-through' : ''
-          } font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70`}
+          } text-slate-400 font-medium text-lg leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70`}
         >
           Accept terms and conditions
         </Label>
       </div>
 
       <div className="w-[5%]">
-        <X className="w-4 h-4" />
+        <X className="w-4 h-4 cursor-pointer text-[#7d8ecd]/50" />
       </div>
     </div>
   );
