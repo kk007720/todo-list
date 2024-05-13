@@ -9,3 +9,18 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id     String  @id @default(uuid())
+  todos  Todo[]  // 一對多關係，一個用戶可以有多個待辦事項
+}
+
+model Todo {
+  id         String   @id @default(uuid())
+  title      String   // 待辦事項的標題
+  isDone     Boolean  @default(false) // 是否完成，預設為未完成
+  createTime DateTime @default(now()) // 創建時間
+  userId     String   // 關聯到 User 模型
+  user       User     @relation(fields: [userId], references: [id]) // 反向關聯到 User
+}
+
