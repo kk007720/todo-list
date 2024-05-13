@@ -2,13 +2,37 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function Item() {
-  const [checked, setChecked] = useState(false);
+export default function Item({
+  index,
+  isDone,
+  title,
+  setList,
+}: {
+  index: number;
+  isDone: boolean;
+  title: string;
+  setList: React.Dispatch<
+    React.SetStateAction<{ isDone: boolean; title: string }[]>
+  >;
+}) {
+  const [checked, setChecked] = useState(isDone);
+
+  useEffect(() => {
+    setList((prevList) =>
+      prevList.map((item, i) =>
+        i === index ? { ...item, isDone: checked } : item
+      )
+    );
+  }, [checked, index, setList]);
 
   const handleCheck = () => {
-    setChecked(() => !checked);
+    setChecked((prevChecked) => !prevChecked);
+  };
+
+  const handleRemove = () => {
+    setList((prevList) => prevList.filter((_, i) => i !== index));
   };
 
   return (
@@ -23,12 +47,15 @@ export default function Item() {
             checked ? 'line-through' : ''
           } text-slate-400 font-medium text-lg leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70`}
         >
-          Accept terms and conditions
+          {title}
         </Label>
       </div>
 
       <div className="w-[5%]">
-        <X className="w-4 h-4 cursor-pointer text-[#7d8ecd]/50" />
+        <X
+          className="w-4 h-4 cursor-pointer text-[#7d8ecd]/50"
+          onClick={handleRemove}
+        />
       </div>
     </div>
   );
