@@ -1,4 +1,3 @@
-'use server';
 import Header from '@/components/header';
 import ProgressBar from '@/components/progressBar';
 import MoveDownSwitch from '@/components/move-down-switch';
